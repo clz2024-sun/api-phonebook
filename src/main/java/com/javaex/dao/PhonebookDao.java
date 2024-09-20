@@ -70,9 +70,11 @@ public class PhonebookDao {
 	public int insertPerson(PersonVo personVo) {
 		System.out.println("PhonebookDao.insertPerson()");
 		
-		//int count = sqlSession.insert("phonebook.insert", personVo);
+		//vo를 사용할때
+		int count = sqlSession.insert("phonebook.insert", personVo);
 		
-		//가정 map
+		//가정 map 으로 사용할때
+		/*
 		String name ="정우성";
 		String hp ="111";
 		String company ="222";
@@ -82,10 +84,10 @@ public class PhonebookDao {
 		pMap.put("company", company);
 		
 		int count = sqlSession.insert("phonebook.insert2", pMap);
+		*/
 		
 		return count;
 	}
-	
 	
 	
 	//리스트 가져오기

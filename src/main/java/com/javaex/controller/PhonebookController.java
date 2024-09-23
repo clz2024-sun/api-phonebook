@@ -21,7 +21,7 @@ public class PhonebookController {
 	@Autowired
 	private PhonebookService phonebookService;
 	
-	
+	//전체리스트
 	@GetMapping("/api/persons")
 	public List<PersonVo> getList() {
 		System.out.println("PhonebookController.getList()");
@@ -31,7 +31,7 @@ public class PhonebookController {
 		return personList;
 	}
 	
-	
+	//등록
 	@PostMapping("/api/persons")
 	public int addPerson(@RequestBody PersonVo personVo) {
 		System.out.println("PhonebookController.addPerson()");
@@ -41,7 +41,7 @@ public class PhonebookController {
 		return count;
 	}
 	
-	
+	//삭제
 	@DeleteMapping("/api/persons/{no}")
 	public JsonResult delPerson(@PathVariable(value="no") int no) {
 		System.out.println("PhonebookController.addPerson()");
@@ -57,6 +57,7 @@ public class PhonebookController {
 		
 	}
 	
+	//수정폼, 1명데이터 가져오기
 	@GetMapping("/api/persons/{no}")
 	public JsonResult getPerson(@PathVariable(value="no") int personId) {
 		System.out.println("PhonebookController.getPerson()");
@@ -72,15 +73,22 @@ public class PhonebookController {
 		
 	}
 	
-	
+	//수정
 	@PutMapping("/api/persons/{no}")
-	public JsonResult updatePerson() {
+	public JsonResult updatePerson(@PathVariable(value="no") int personId,
+								   @RequestBody	PersonVo personVo) {
 		System.out.println("PhonebookController.updatePerson()");
+		personVo.setPersonId(personId);
 		
-		return null;
+		int count = phonebookService.exeEditPerson(personVo);
+		
+		if(count == 0) {
+			return JsonResult.fail("수정할 데이터가 없습니다.");
+		}else {
+			return JsonResult.success(count);
+		}
+		
 	}
 	
-	
-	
-	
 }
+

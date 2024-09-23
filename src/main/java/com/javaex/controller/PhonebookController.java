@@ -23,22 +23,24 @@ public class PhonebookController {
 	
 	//전체리스트
 	@GetMapping("/api/persons")
-	public List<PersonVo> getList() {
+	public JsonResult getList() {
 		System.out.println("PhonebookController.getList()");
 		
 		List<PersonVo> personList = phonebookService.exeGetPersonList();
-		System.out.println(personList);
-		return personList;
+		return JsonResult.success(personList);
 	}
 	
 	//등록
 	@PostMapping("/api/persons")
-	public int addPerson(@RequestBody PersonVo personVo) {
+	public JsonResult addPerson(@RequestBody PersonVo personVo) {
 		System.out.println("PhonebookController.addPerson()");
 		
 		int count = phonebookService.exeWritePerson(personVo);
-		System.out.println(count);
-		return count;
+		if(count != 1) { //등록안됨
+			return JsonResult.fail("등록에 실패했습니다.");
+		}else { //등록됨
+			return JsonResult.success(count);
+		}
 	}
 	
 	//삭제

@@ -6,13 +6,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class HelloController {
+public class TestController {
 
 	@ResponseBody
-	@RequestMapping(value="/hello", method = {RequestMethod.GET, RequestMethod.POST})
-	public String hello() {
-		System.out.println("HelloController.hello()");
+	@RequestMapping(value="/api/test", method = {RequestMethod.GET, RequestMethod.POST})
+	public String test() {
+		System.out.println("HelloController.test()");
 		
-		return "안녕하세요";
+		return "api서버테스트";
 	}
 }
+
+
+
